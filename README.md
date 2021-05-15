@@ -31,7 +31,10 @@ Deleting articles can be accomplished using the destroy action in the articles c
 3. Find the article to delete and delete it using the destroy method within the destroy action.
 
 
+User: interface 
+We added a lot of links to the application in order to perform all the actions for articles, along with adding the ability to navigate around the application. These were accomplished using layout links. See html.erbs
 
+DRY - Don't Repeat Yourself - code can be accomplished by refactoring or 'extracting away code redundancies'. We accomplished a significant amount of this by using a couple of private methods in our articles controller and using partials in our views. Clean code should always be a priority once features are built and working as we want so that our code is easy to read and easily maintainable. See htmls and article controllers
 
 
 Things you may want to cover:

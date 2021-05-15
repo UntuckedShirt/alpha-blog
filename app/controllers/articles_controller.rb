@@ -1,9 +1,10 @@
 class ArticlesController < ApplicationController
-
+  #this is a helper. You are passing in method name as a symbol to this method which is before_action
+  #it performs this action for the actions needed
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
   def show 
     #must create an instance of article and not just a variable
-     
-    @article = Article.find(params[:id])
+     #@article = Article.find(params[:id])
   end
 
   def index
@@ -19,13 +20,13 @@ class ArticlesController < ApplicationController
   end
   #Add edit and update actions in the articles controller.
   def edit
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
 
   end
 
   def create
     #require top level key of article and permit title and desxription to create article instnce variable
-    @article = Article.new(params.require(:articles).permit(:title, :description))
+    @article = Article.new(article_params)
     #render plain: @article.inspect
     if @article.save
       #helps render flash messages 
@@ -46,8 +47,8 @@ class ArticlesController < ApplicationController
   #if there are no validation errors, then update the 
   #article in the articles table with the new data
   def update
-    @article = Article.find(params[:id])
-    if @article.update(params.require(:article).permit(:title, :description))
+    #@article = Article.find(params[:id])
+    if @article.update(article_params)
       flash[:notice] = "I can't believe you updated an article"
       redirect_to @article
     else
@@ -56,11 +57,23 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    #@article = Article.find(params[:id])
     @article.destroy
     redirect_to articles_path
-
   end
+#Private makes code/method available for use just within the specific controller
+  private
+
+#this performs this line of code
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+#same as above it performs line for update/create
+  def article_params
+    params.require(:article,).permit(:title, :description)
+  end
+
 end
   
   
