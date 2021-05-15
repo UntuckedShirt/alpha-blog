@@ -1,0 +1,34 @@
+<h1>Create a new article</h1>
+<%# In order to display the messages, we add the 
+    following code block to the new.html.erb template %>
+<% if @article.errors.any? %>
+<h2> The following erros prevented the articles from being saved </h2>>
+    <ul>
+    <% @article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+    <% end %>
+    </ul>
+<% end %>
+<%# the scope is arcticle%>
+<%= form_with scope: :articles, url: articles_path, local: true do |f| %>
+
+    <p>
+    <%# text_field gives a 1 line box%>
+        <%= f.label :title %><br/>
+        <%= f.text_field :title %>
+    </p>
+
+    <p> 
+        <%= f.label :description %><br/>
+    <%# text_area give an expandable box%>
+        <%= f.text_area :description %>
+    </p>
+
+    <p>
+    <%# creates a submit button%>
+        <%= f.submit %>
+    </p>
+
+<% end %>
+
+<%= link_to 'Return to articles listing', articles_path %>

@@ -10,6 +10,57 @@ class ArticlesController < ApplicationController
     @articles = Article.all
 
   end
+
+  def new
+    # initiate an @article instance variable in the new action
+    #Otherwise, the code @article.errors.any? will fail (as there is no 
+    #@article instance variable available at the time).
+    @article = Article.new
+  end
+  #Add edit and update actions in the articles controller.
+  def edit
+    @article = Article.find(params[:id])
+
+  end
+
+  def create
+    #require top level key of article and permit title and desxription to create article instnce variable
+    @article = Article.new(params.require(:articles).permit(:title, :description))
+    #render plain: @article.inspect
+    if @article.save
+      #helps render flash messages 
+      flash[:notice] = "You did it! You created an article"
+    redirect_to (@article)
+    #In order to display the validation messages, we 
+    #have to add an if else block to our create action. 
+    #This is done to check for if the save happened, 
+    #if not (else clause) then we display the new form 
+    #again with the messages displayed.
+    else
+      render 'new'
+    end
+  end
+
+  #Use the update action to find the article in the db. 
+  #Whitelist the new title and description fields and 
+  #if there are no validation errors, then update the 
+  #article in the articles table with the new data
+  def update
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description))
+      flash[:notice] = "I can't believe you updated an article"
+      redirect_to @article
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @article = Article.find(params[:id])
+    @article.destroy
+    redirect_to articles_path
+
+  end
 end
   
   
