@@ -71,7 +71,7 @@ class ArticlesController < ApplicationController
 
 #same as above it performs line for update/create
   def article_params
-    params.require(:article,).permit(:title, :description)
+    params.require(:article).permit(:title, :description)
   end
 
 end
