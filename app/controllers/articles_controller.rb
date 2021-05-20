@@ -27,6 +27,7 @@ class ArticlesController < ApplicationController
   def create
     #require top level key of article and permit title and desxription to create article instnce variable
     @article = Article.new(article_params)
+    @article.user = User.first
     #render plain: @article.inspect
     if @article.save
       #helps render flash messages 
