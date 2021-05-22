@@ -6,6 +6,8 @@
 #user.save then User.all
 #to destroy call User.first then user.destroy
 class User < ApplicationRecord
+    #method below keeps and saves emails as downcase
+    before_save {self.email = email.downcase}
     has_many :articles
     validates :username, presence: true, 
                         uniqueness: { case_sensitive: false }, 
@@ -16,6 +18,7 @@ class User < ApplicationRecord
                         uniqueness: { case_sensitive: false },  
                         length: { maximum: 105 },
                         format: { with: VALID_EMAIL_REGEX }
+    has_secure_password
 
 
 end

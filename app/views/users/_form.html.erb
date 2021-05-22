@@ -1,3 +1,5 @@
+<%# this paetial and folder was created to house the new/signup form%>
+
 <%# this is a form partial%>
 
 <%# In order to display the messages, we add the 
@@ -13,20 +15,26 @@
 <%# end %>
 <%# By specifying @article(instance variable) and this is the edit 
 form in the route itll form a URL to submit request %>
-<%= render 'shared/errors', obj: @article %> <%# definig what obj would be in partial if its rednered from for partial new/edit%>
+<%= render 'shared/errors', obj: @user %>
 
-<%= form_with(model: @article, local: true)  do |f| %>
+<%= form_with(model: @user, local: true)  do |f| %>
 
     <p>
     <%# text_field gives a 1 line box%>
-        <%= f.label :title %><br/>
-        <%= f.text_field :title %>
+        <%= f.label :username %><br/>
+        <%= f.text_field :username %>
     </p>
 
     <p> 
-        <%= f.label :description %><br/>
+        <%= f.label :email %><br/>
     <%# text_area give an expandable box%>
-        <%= f.text_area :description %>
+        <%= f.email_field :email %>
+    </p>
+
+    <p>
+    <%= f.label :password %><br/>
+    <%# text_area give an expandable box%>
+        <%= f.password_field :password %>
     </p>
 
     <p>
@@ -34,6 +42,5 @@ form in the route itll form a URL to submit request %>
         <%= f.submit %>
     </p>
 
-    <%= link_to '[ Cancel and return to articles listing ]', articles_path, class: "text-info" %>
-
+<%= link_to '[ Cancel and return to articles listing ]', articles_path, class: "text-info" %>
 <% end %>
